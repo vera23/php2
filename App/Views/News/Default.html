@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!-- Latest compiled and minified CSS -->
+    <!-- Bootstrap -->
+    <link href="/App/Views/News/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+<section>
+
+    <h1>Новости</h1>
+
+    <?php foreach($articles as $article): ?>
+    <article class="clearfix">
+        <?php echo $article->published; ?>
+        <a href="article.php?id=<?php echo $article->id;?>"><h3>
+            <?php echo $article->title; ?>
+        </h3></a><br>
+        <?php echo $article->lead; ?>
+    </article>
+    <br>
+    <br>
+
+    <?php endforeach; ?>
+</section>
+
+    </div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="/App/Views/News/bootstrap/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

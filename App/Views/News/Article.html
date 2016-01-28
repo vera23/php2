@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!-- Latest compiled and minified CSS -->
+    <!-- Bootstrap -->
+    <link href="/App/Views/News/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+    </ol>
+    <section>
+        <article class="clearfix">
+            <h3>
+                <?php echo $article->title; ?>
+            </h3><br>
+            <?php echo $article->text; ?>
+            <br>
+            <br>
+            <?php echo $article->published; ?>
+        </article>
+    </section>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="/App/Views/News/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -2,4 +2,8 @@
 
 require __DIR__ . '/autoload.php';
 
-$db = new \App\Db();
+$articles = \App\Models\News::findLastTreeNews();
+include __DIR__ . '/App/Views/News/Default.html';
+
+
+
