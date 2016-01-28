@@ -11,7 +11,7 @@ class Model
     {
         $db = new Db();
         $sql = 'SELECT * FROM ' . static::TABLE;
-        return $db->query($sql, static::class);
+        return $db->findAll($sql, static::class);
     }
 
     public static function findById($id)
