@@ -16,7 +16,7 @@ class News extends Model
     const TABLE = "news";
 
     public static function findLastTreeNews() {
-        $db = new Db();
+        $db = Db::instance();
         $sql = 'SELECT * FROM ' . self::TABLE . ' ORDER BY published DESC LIMIT 3';
         return $db->findAll($sql, self::class);
     }
