@@ -8,9 +8,22 @@ class Db
 
     protected $dbh;
 
+    protected function getConfig()
+    {
+        return $config = Config::instance()->data;
+    }
+
     protected function __construct()
     {
-        $this->dbh = new \PDO('mysql:host=127.0.0.1;dbname=php2', 'root', '');
+        $config = $this->getConfig();
+        $this->dbh = new \PDO('mysql:host=' .
+            $config['db']['host'] . ';dbname=' . $config['db']['dbname'],
+            $config['db']['user'], $config['db']['password']);
+    }
+
+    public function lastInsertId()
+    {
+        return $this->dbh->lastInsertId();
     }
 
     public function execute($sql, array $binded = [])

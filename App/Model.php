@@ -2,6 +2,15 @@
 
 namespace App;
 
+/**
+ * Class Model
+ * @package App
+ */
+
+/**
+ * @var \PDO
+ */
+
 
 class Model
 {
@@ -32,6 +41,7 @@ class Model
         return empty($this->id);
     }
 
+
     public function insert()
     {
         if (!$this->isNew()) {
@@ -53,11 +63,53 @@ class Model
 
         $db = Db::instance();
         $db->execute($sql, $values);
+
+        $this->id = $db->lastInsertId();
     }
 
     public function update()
     {
+        if ($this->isNew()) {
+            return;
+        }
 
+        $columns = [];
+        $values = [];
+        foreach ($this as $k => $v) {
+            if ('id' == $k) {
+                continue;
+            }
+            $columns[] = $k.'=:'.$k;
+            $values[':' . $k] = $v;
+        }
+
+        $sql = 'UPDATE ' .static::TABLE . ' SET '. implode(',', $columns) . ' WHERE id=' .$this->id;
+
+        $db = Db::instance();
+        $db->execute($sql, $values);
+    }
+
+    public function beforeSave() {
+        return true;
+    }
+
+    public function save() {
+        $this->beforeSave();
+        if($this->isNew()) {
+            $this->insert();
+        }
+        else {
+            $this->update();
+        }
+    }
+
+    public function delete() {
+        if($this->isNew()) {
+            return;
+        }
+        $sql = 'DELETE FROM ' . static::TABLE . ' WHERE id=' . $this->id;
+        $db = Db::instance();
+        $db->execute($sql);
     }
 }
 
