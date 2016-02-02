@@ -31,9 +31,10 @@ class News extends Model
         return true;
     }
 
-    public function checkForm() {
-        !empty($post['title']) ? $this->title = $post['title'] : $this->title = 'Напишите заголовок!!';
-        !empty($post['lead']) ? $this->lead = $post['lead'] : $this->lead = 'Напишите заголовок!!';
-        !empty($post['text']) ? $this->text = $post['text'] : $this->text = 'Напишите текст новости!!';
+    public function checkForm()
+    {
+        !empty($_POST['title']) ? $this->title = $_POST['title'] : $this->title = 'Напишите заголовок!!';
+        !empty($_POST['lead']) ? $this->lead = $_POST['lead'] : $this->lead = 'Напишите заголовок!!';
+        !empty($_POST['text']) ? $this->text = $_POST['text'] : $this->text = 'Напишите текст новости!!';
     }
 }
