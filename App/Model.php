@@ -32,10 +32,6 @@ class Model
         return $db->find($sql, static::class, [$id]);
     }
 
-    /*public function findLast($n) {
-        $db =
-    }*/
-
     public function isNew()
     {
         return empty($this->id);
@@ -45,7 +41,7 @@ class Model
     public function insert()
     {
         if (!$this->isNew()) {
-            return;
+            return false;
         }
 
         $columns = [];
@@ -62,15 +58,15 @@ class Model
             ' VALUES (' . implode(',', array_keys($values)) . ' )';
 
         $db = Db::instance();
-        $db->execute($sql, $values);
-
+        $res = $db->execute($sql, $values);
         $this->id = $db->lastInsertId();
+        return $res;
     }
 
     public function update()
     {
         if ($this->isNew()) {
-            return;
+            return false;
         }
 
         $columns = [];
@@ -86,7 +82,7 @@ class Model
         $sql = 'UPDATE ' .static::TABLE . ' SET '. implode(',', $columns) . ' WHERE id=' .$this->id;
 
         $db = Db::instance();
-        $db->execute($sql, $values);
+        return $db->execute($sql, $values);
     }
 
     public function beforeSave() {
@@ -95,12 +91,7 @@ class Model
 
     public function save() {
         $this->beforeSave();
-        if($this->isNew()) {
-            $this->insert();
-        }
-        else {
-            $this->update();
-        }
+        return $this->isNew() ? $this->insert() : $this->update();
     }
 
     public function delete() {
