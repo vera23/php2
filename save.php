@@ -17,9 +17,7 @@ if (!empty($post['title']) && !empty($post['text']) && !empty($post['lead'])) {
 
 else {
     $article = new \App\Models\News();
-    !empty($post['title']) ? $article->title = $post['title'] : $article->title = 'Напишите заголовок!!';
-    !empty($post['lead']) ? $article->lead = $post['lead'] : $article->lead = 'Напишите заголовок!!';
-    !empty($post['text']) ? $article->text = $post['text'] : $article->text = 'Напишите текст новости!!';
+    $article->checkForm();
     include __DIR__ . '/App/Views/News/Edit.html';
 }
 
