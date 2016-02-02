@@ -11,14 +11,17 @@ if (!empty($post['title']) && !empty($post['text']) && !empty($post['lead'])) {
     $news->lead = $post['lead'];
     $news->text = $post['text'];
     $news->published = $post['published'];
-    $news->save();
-    require __DIR__ . '/index.php';
+    $res = $news->save();
+    if(false == $res ){
+        echo 'Ничего не сохранилось';
+    }
+    require __DIR__ . '/admin.php';
 }
 
 else {
     $article = new \App\Models\News();
     $article->checkForm();
-    include __DIR__ . '/App/Views/News/Edit.html';
+    include __DIR__ . '/App/Views/News/Admin/Edit.html';
 }
 
 

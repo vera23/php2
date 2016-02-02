@@ -100,7 +100,7 @@ class Model
         }
         $sql = 'DELETE FROM ' . static::TABLE . ' WHERE id=' . $this->id;
         $db = Db::instance();
-        $db->execute($sql);
+        return $db->execute($sql);
     }
 }
 
