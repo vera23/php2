@@ -79,7 +79,9 @@ class Model
             if ('id' == $k) {
                 continue;
             }
+            
             //Сделаю Exception - удалю этот if
+
             if(preg_match('~Alert~', $k)) {
                 continue;
             }
