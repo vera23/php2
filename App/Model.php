@@ -50,7 +50,7 @@ class Model
             if ('id' == $k) {
                 continue;
             }
-            //Сделаю Exception - удалю этот if
+            //РЎРґРµР»Р°СЋ Exception - СѓРґР°Р»СЋ СЌС‚РѕС‚ if
             if(preg_match('~Alert~', $k)) {
                 continue;
             }
@@ -79,9 +79,7 @@ class Model
             if ('id' == $k) {
                 continue;
             }
-            
-            //Сделаю Exception - удалю этот if
-
+            //РЎРґРµР»Р°СЋ Exception - СѓРґР°Р»СЋ СЌС‚РѕС‚ if
             if(preg_match('~Alert~', $k)) {
                 continue;
             }
