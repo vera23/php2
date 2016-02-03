@@ -2,15 +2,14 @@
 
 require __DIR__ . '/autoload.php';
 
-$post = $_POST;
 
-if (!empty($post['title']) && !empty($post['text']) && !empty($post['lead'])) {
+if (!empty($_POST['title']) && !empty($_POST['text']) && !empty($_POST['lead'])) {
     $news = new \App\Models\News;
-    $news->id = (int)$post['id'];
-    $news->title = $post['title'];
-    $news->lead = $post['lead'];
-    $news->text = $post['text'];
-    $news->published = $post['published'];
+    $news->id = (int)$$_POST['id'];
+    $news->title = $_POST['title'];
+    $news->lead = $_POST['lead'];
+    $news->text = $_POST['text'];
+    $news->published = $_POST['published'];
     $res = $news->save();
     if(false == $res ){
         echo 'Ничего не сохранилось';
