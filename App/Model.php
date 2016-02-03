@@ -50,6 +50,10 @@ class Model
             if ('id' == $k) {
                 continue;
             }
+            //Сделаю Exception - удалю этот if
+            if(preg_match('~Alert~', $k)) {
+                continue;
+            }
             $columns[] = $k;
             $values[':' . $k] = $v;
         }
@@ -73,6 +77,10 @@ class Model
         $values = [];
         foreach ($this as $k => $v) {
             if ('id' == $k) {
+                continue;
+            }
+            //Сделаю Exception - удалю этот if
+            if(preg_match('~Alert~', $k)) {
                 continue;
             }
             $columns[] = $k.'=:'.$k;
