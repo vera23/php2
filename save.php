@@ -2,24 +2,24 @@
 
 require __DIR__ . '/autoload.php';
 
+if (!empty($_POST['id'])) {
+    $article = \App\Models\News::findById($_POST['id']);
+} else {
+    $article = new \App\Models\News();
+}
 
-if (!empty($_POST['title']) && !empty($_POST['text']) && !empty($_POST['lead'])) {
-    $news = new \App\Models\News;
-    $news->id = (int)$$_POST['id'];
-    $news->title = $_POST['title'];
-    $news->lead = $_POST['lead'];
-    $news->text = $_POST['text'];
-    $news->published = $_POST['published'];
-    $res = $news->save();
-    if(false == $res ){
+$article->title = trim($_POST['title']);
+$article->lead = trim($_POST['lead']);
+$article->text = trim($_POST['text']);
+$article->published = trim($_POST['published']);
+
+if ($article->validate()) {
+    $res = $article->save();
+    if (false == $res) {
         echo 'Ничего не сохранилось';
     }
     require __DIR__ . '/admin.php';
-}
-
-else {
-    $article = new \App\Models\News();
-    $article->checkForm();
+} else {
     include __DIR__ . '/App/Views/News/Admin/Edit.html';
 }
 

@@ -6,6 +6,7 @@
     <!-- Latest compiled and minified CSS -->
     <!-- Bootstrap -->
     <link href="/App/Views/News/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/App/Views/News/css/styles.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -25,6 +26,16 @@
 
         <input type="hidden" name="id" value="<?php echo $article->id;?>">
 
+        <?php if(!empty($article->titleAlert)) : ?>
+        <div class="alert col-sm-12 alert-danger" role="alert"><?php echo $article->titleAlert; ?></div>
+        <?php endif;?>
+        <?php if(!empty($article->leadAlert)) : ?>
+        <div class="alert col-sm-12 alert-danger" role="alert"><?php echo $article->leadAlert; ?></div>
+        <?php endif;?>
+        <?php if(!empty($article->textAlert)) : ?>
+        <div class="alert col-sm-12 alert-danger" role="alert"><?php echo $article->textAlert; ?></div>
+        <?php endif;?>
+
         <div class="form-group">
             <label for="title">Заголовок</label>
             <input type="text" class="form-control" id="title" name="title" placeholder="Заголовок"
@@ -32,8 +43,7 @@
         </div>
         <div class="form-group">
             <label for="published">Время</label>
-            <input type="text" class="form-control" id="published" name="published" placeholder="Время"
-                   value="<?php echo $article->published;?>">
+            <input type="text" class="form-control" id="published" name="published" placeholder="Время" value="<?php echo $article->published;?>">
         </div>
         <div class="form-group">
             <label for="lead">Lead</label>

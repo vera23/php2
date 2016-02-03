@@ -13,6 +13,10 @@ class News extends Model
     public $lead;
     public $text;
 
+    public $titleAlert;
+    public $leadAlert;
+    public $textAlert;
+
     const TABLE = "news";
 
 
@@ -31,10 +35,20 @@ class News extends Model
         return true;
     }
 
-    public function checkForm()
+    public function validate()
     {
-        !empty($_POST['title']) ? $this->title = $_POST['title'] : $this->title = 'Напишите заголовок!!';
-        !empty($_POST['lead']) ? $this->lead = $_POST['lead'] : $this->lead = 'Напишите заголовок!!';
-        !empty($_POST['text']) ? $this->text = $_POST['text'] : $this->text = 'Напишите текст новости!!';
+        if (empty($this->title)) {
+            $this->titleAlert = 'Напишите заголовок';
+        }
+        if (empty($this->lead)) {
+            $this->leadAlert = 'Напишите введение';
+        }
+        if (empty($this->text)) {
+            $this->textAlert = 'Напишите текст новости';
+        }
+        if (!empty($this->titleAlert) || !empty($this->leadAlert) || !empty($this->textAlert)) {
+            return false;
+        } else
+            return true;
     }
 }
