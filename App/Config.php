@@ -6,16 +6,9 @@ class Config
 {
     use Singleton;
 
-    public $data = [
-        'db' => [
-           'host' => '127.0.0.1',
-            'dbname' => 'php2',
-            'user' => 'root',
-            'password' => '',
-        ]
-    ];
+    public $data = [];
 
     protected function __construct() {
-
+        $this->data = require __DIR__ . '/config_data.php';
     }
 }

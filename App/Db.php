@@ -26,40 +26,40 @@ class Db
         return $this->dbh->lastInsertId();
     }
 
-    public function execute($sql, array $binded = [])
+    public function execute($sql, array $values = [])
     {
         $sth = $this->dbh->prepare($sql);
-        $res = $sth->execute($binded);
+        $res = $sth->execute($values);
         return $res;
     }
 
-    public function query($sql, $class, array $binded = [])
+    public function query($sql, $class, array $values = [])
     {
         $sth = $this->dbh->prepare($sql);
-        $res = $sth->execute($binded);
+        $res = $sth->execute($values);
         if (false !== $res) {
             return $sth->fetchAll(\PDO::FETCH_CLASS, $class);
         }
         return [];
     }
 
-    //В один query не могу предусмотреть нужно возвращать массив объектов или один объект
-    //Как вариант сделала методы find и findAll
+    //пїЅ пїЅпїЅпїЅпїЅ query пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ find пїЅ findAll
 
-    public function find($sql, $class, array $binded = [])
+    public function find($sql, $class, array $values = [])
     {
         $sth = $this->dbh->prepare($sql);
-        $res = $sth->execute($binded);
+        $res = $sth->execute($values);
         if (false !== $res) {
             return $sth->fetchObject($class);
         }
         return false;
     }
 
-    public function findAll($sql, $class, array $binded = [])
+    public function findAll($sql, $class, array $values = [])
     {
         $sth = $this->dbh->prepare($sql);
-        $res = $sth->execute($binded);
+        $res = $sth->execute($values);
         if (false !== $res) {
             return $sth->fetchAll(\PDO::FETCH_CLASS, $class);
         }

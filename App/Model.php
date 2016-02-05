@@ -2,10 +2,10 @@
 
 namespace App;
 
-/**
- * Class Model
- * @package App
- */
+    /**
+     * Class Model
+     * @package App
+     */
 
 /**
  * @var \PDO
@@ -28,8 +28,9 @@ class Model
     public static function findById(int $id)
     {
         $db = Db::instance();
-        $sql = 'SELECT * FROM ' . static::TABLE . ' WHERE id = ?';
-        return $db->find($sql, static::class, [$id]);
+        $sql = 'SELECT * FROM ' . static::TABLE . ' WHERE id = :id';
+        $values[':id'] = $id;
+        return $db->find($sql, static::class, $values);
     }
 
     public function isNew()
@@ -51,7 +52,7 @@ class Model
                 continue;
             }
             //Сделаю Exception - удалю этот if
-            if(preg_match('~Alert~', $k)) {
+            if (preg_match('~Alert~', $k)) {
                 continue;
             }
             $columns[] = $k;
@@ -80,35 +81,39 @@ class Model
                 continue;
             }
             //Сделаю Exception - удалю этот if
-            if(preg_match('~Alert~', $k)) {
+            if (preg_match('~Alert~', $k)) {
                 continue;
             }
-            $columns[] = $k.'=:'.$k;
+            $columns[] = $k . '=:' . $k;
             $values[':' . $k] = $v;
         }
 
-        $sql = 'UPDATE ' .static::TABLE . ' SET '. implode(',', $columns) . ' WHERE id=' .$this->id;
-
+        $sql = 'UPDATE ' . static::TABLE . ' SET ' . implode(',', $columns) . ' WHERE id=:id';
+        $values[':id'] = $this->id;
         $db = Db::instance();
         return $db->execute($sql, $values);
     }
 
-    public function beforeSave() {
+    public function beforeSave()
+    {
         return true;
     }
 
-    public function save() {
+    public function save()
+    {
         $this->beforeSave();
         return $this->isNew() ? $this->insert() : $this->update();
     }
 
-    public function delete() {
-        if($this->isNew()) {
-            return;
+    public function delete()
+    {
+        if ($this->isNew()) {
+            return false;
         }
-        $sql = 'DELETE FROM ' . static::TABLE . ' WHERE id=' . $this->id;
+        $sql = 'DELETE FROM ' . static::TABLE . ' WHERE id=:id';
+        $values[':id'] = $this->id;
         $db = Db::instance();
-        return $db->execute($sql);
+        return $db->execute($sql, $values);
     }
 }
 
