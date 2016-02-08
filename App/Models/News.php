@@ -6,10 +6,12 @@ namespace App\Models;
 use App\Db;
 use App\Model;
 use App\TArrayAccess;
+use App\TIterator;
 
-class News extends Model implements \ArrayAccess
+class News extends Model implements \ArrayAccess, \Iterator
 {
     use TArrayAccess;
+    use TIterator;
 
     public $title;
     public $published;

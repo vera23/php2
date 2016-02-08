@@ -11,7 +11,6 @@ trait TArrayAccess
     {
         if (!is_null($array)) {
             $this->container = $array;
-            var_dump($this->container);
         }
     }
 
