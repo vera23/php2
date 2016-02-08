@@ -5,9 +5,12 @@ namespace App\Models;
 
 use App\Db;
 use App\Model;
+use App\TArrayAccess;
 
-class News extends Model
+class News extends Model implements \ArrayAccess
 {
+    use TArrayAccess;
+
     public $title;
     public $published;
     public $lead;
@@ -95,13 +98,4 @@ class News extends Model
         }
         return false;
     }
-
-    /*public function author() {
-
-       if( !empty($this->author_id) {
-
-       }
-    }*/
-
-
 }
