@@ -1,0 +1,6 @@
+CREATE TABLE `users` (`id` SERIAL,
+                     `name` VARCHAR(100),
+                     `email` VARCHAR(100)
+                     );
+
+INSERT INTO `php2`.`users` (`id`, `name`, `email`) VALUES (NULL, 'Вера', 'veramir10@gmail.com'), (NULL, 'Вася', 'v@mail.ru');

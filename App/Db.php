@@ -4,7 +4,7 @@ namespace App;
 
 class Db
 {
-    use Singleton;
+    use TSingleton;
 
     protected $dbh;
 

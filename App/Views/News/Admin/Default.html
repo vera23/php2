@@ -27,7 +27,8 @@
             <?php foreach($articles as $article): ?>
             <tr>
                 <td class="col-sm-10">
-                    <?php echo $article->published; ?>
+                    <?php echo $article->published; ?><br>
+                    <?php echo $article->author->name;?>
 
                     <a href="article.php?id=<?php echo $article->id;?>"><h3>
                         <?php echo $article->title; ?>

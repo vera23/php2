@@ -4,7 +4,7 @@ namespace App;
 
 class Config
 {
-    use Singleton;
+    use TSingleton;
 
     public $data = [];
 

@@ -12,6 +12,7 @@ class News extends Model
     public $published;
     public $lead;
     public $text;
+    public $author_id;
 
     public $titleAlert;
     public $leadAlert;
@@ -27,6 +28,11 @@ class News extends Model
         return $db->findAll($sql, self::class);
     }
 
+    /**
+     * @return bool
+     * the function checks the value of the forms field 'published', if it is empty it
+     * sets the current time
+     */
     public function beforeSave()
     {
         if (null == $this->published) {
@@ -35,6 +41,10 @@ class News extends Model
         return true;
     }
 
+    /**
+     * functon is validating what came from the form
+     * @return bool
+     */
     public function validate()
     {
         if (empty($this->title)) {
@@ -51,4 +61,47 @@ class News extends Model
         } else
             return true;
     }
+
+    protected $data = [];
+
+    public function __set($k, $v)
+    {
+        return $this->data[$k] = $v;
+    }
+
+    /**
+     * @param $k
+     * @return mixed returns array or an object of the Author class if there were ->author required
+     *and there is not empty author_id
+     */
+    public function __get($k)
+    {
+        if ('author' == $k && !empty($this->author_id)) {
+            return $this->author = Author::findById($this->author_id);
+        } else {
+            return $this->data[$k];
+        }
+    }
+
+    /**
+     * @param $k
+     * @return bool true if the $k == 'author' or the value is isset
+     * or false
+     */
+    public function __isset($k)
+    {
+        if ('author' == $k && isset($data[$k])) {
+            return true;
+        }
+        return false;
+    }
+
+    /*public function author() {
+
+       if( !empty($this->author_id) {
+
+       }
+    }*/
+
+
 }

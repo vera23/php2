@@ -3,11 +3,13 @@
 namespace App\Models;
 
 
-class User
+use App\Model;
+
+class User extends Model
 {
     public $email;
     public $name;
 
-
+    const TABLE = 'users';
 
 }
