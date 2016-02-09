@@ -8,16 +8,15 @@ use App\Model;
 use App\TArrayAccess;
 use App\TIterator;
 
+/**
+ * @property Author $author
+ * exists if the News object has not null author_id
+ */
+
 class News extends Model implements \ArrayAccess, \Iterator
 {
     use TArrayAccess;
     use TIterator;
-
-    /**
-     * model News property
-     * @var $author object contains object of Author class if
-     * the object has not null author_id
-     */
 
     public $title;
     public $published;
