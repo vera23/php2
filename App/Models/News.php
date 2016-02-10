@@ -9,7 +9,7 @@ use App\TArrayAccess;
 use App\TIterator;
 
 /**
- * @property Author $author
+ * @property \App\Models\Author $author
  * exists if the News object has not null author_id
  */
 
