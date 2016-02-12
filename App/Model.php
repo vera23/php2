@@ -73,7 +73,6 @@ class Model
         if ($this->isNew()) {
             return false;
         }
-
         $columns = [];
         $values = [];
         foreach ($this as $k => $v) {

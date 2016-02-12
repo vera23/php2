@@ -2,11 +2,17 @@
 
 require_once __DIR__ . '/autoload.php';
 
-/*$view = new \App\View();
-$view->title = 'Why not?';
-$view->users = \App\Models\User::findAll();
-$view->display(__DIR__ . '/App/templates/index.php');*/
 
+$route = new \App\Route();
 
-$articles = \App\Models\News::findAll();
-include __DIR__ . '/App/Views/News/Index/Default.html';
+if($route->folder == 'admin') {
+    $controller = new \App\Controllers\Admin\News();
+    $controller->action($route->action);
+
+}
+
+else {
+    $controller = new \App\Controllers\Index\News();
+    $controller->action($route->action);
+}
+
