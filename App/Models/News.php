@@ -12,11 +12,10 @@ use App\TIterator;
  * @property \App\Models\Author $author
  * exists if the News object has not null author_id
  */
-
-class News extends Model implements \ArrayAccess, \Iterator
+class News extends Model /*implements \ArrayAccess, \Iterator*/
 {
-    use TArrayAccess;
-    use TIterator;
+   /* use TArrayAccess;
+    use TIterator;*/
 
     public $title;
     public $published;
@@ -72,37 +71,35 @@ class News extends Model implements \ArrayAccess, \Iterator
             return true;
     }
 
-    protected $data = [];
-
-    public function __set($k, $v)
-    {
-        return $this->data[$k] = $v;
-    }
-
     /**
+     * LAZY LOAD
      * @param $k
-     * @return mixed returns array or an object of the Author class if there were ->author required
-     *and there is not empty author_id
+     * @return \App\Models\Author $author or null
+     * and there is not empty author_id
      */
     public function __get($k)
     {
-        if ('author' == $k && !empty($this->author_id)) {
-            return $this->author = Author::findById($this->author_id);
-        } else {
-            return $this->data[$k];
+        switch ($k) {
+            case 'author':
+                return Author::findById($this->author_id);
+                break;
+            default:
+                return null;
         }
     }
 
     /**
      * @param $k
-     * @return bool true if the $k == 'author' or the value is isset
+     * @return bool
      * or false
      */
     public function __isset($k)
     {
-        if ('author' == $k && isset($data[$k])) {
-            return true;
+        switch ($k) {
+            case 'author':
+                return !empty($this->author_id);
+            default:
+                return false;
         }
-        return false;
     }
 }
