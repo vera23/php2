@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Controllers\Index;
+namespace App\Controllers\News;
 
 
 use App\Controller;
-use App\View;
 
-class News extends Controller
+class Index extends Controller
 {
 
     protected function actionIndex()

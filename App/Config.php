@@ -8,7 +8,8 @@ class Config
 
     public $data = [];
 
-    protected function __construct() {
+    protected function __construct()
+    {
         $this->data = require __DIR__ . '/config_data.php';
     }
 }

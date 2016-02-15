@@ -26,25 +26,16 @@
     <form action="/admin/news/save" method="post">
 
         <input type="hidden" name="id" value="<?php echo $article->id; ?>">
+        <?php if (!empty($errors)) : ?>
 
-        <?php if (!empty($article->titleAlert)) : ?>
-            <div class="alert col-sm-12 alert-danger" role="alert">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <?php echo $article->titleAlert; ?>
-            </div>
+            <?php foreach ($errors as $error) : ?>
+                <div class="alert col-sm-12 alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <?php echo $error->getMessage(); ?>
+                </div>
+            <?php endforeach; ?>
         <?php endif; ?>
-        <?php if (!empty($article->leadAlert)) : ?>
-            <div class="alert col-sm-12 alert-danger" role="alert">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <?php echo $article->leadAlert; ?>
-            </div>
-        <?php endif; ?>
-        <?php if (!empty($article->textAlert)) : ?>
-            <div class="alert col-sm-12 alert-danger" role="alert">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <?php echo $article->textAlert; ?>
-            </div>
-        <?php endif; ?>
+
 
         <div class="form-group">
             <label for="title">Заголовок</label>
@@ -56,13 +47,17 @@
             <input type="text" class="form-control" id="published" name="published" placeholder="Время"
                    value="<?php echo $article->published; ?>">
         </div>
-        <select name="author" class="form-control">
-            <?php foreach($authors as $author) : ?>
-            <option value="<?php echo $author->id?>" ><?php echo $author->name?></option>
-            <?php endforeach; ?>
-        </select>
         <div class="form-group">
-            <label for="lead">Lead</label>
+            <label for="author">Автор</label>
+            <select name="author" class="form-control">
+                <?php foreach ($authors as $author) : ?>
+                    <option value="<?php echo $author->id ?>"><?php echo $author->name ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="lead">Введение</label>
             <textarea rows="5" class="form-control" id="lead" name="lead"><?php echo $article->lead; ?></textarea>
         </div>
         <div class="form-group">

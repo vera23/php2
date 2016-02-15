@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Exceptions\DbException;
+
 class Db
 {
     use TSingleton;
@@ -10,15 +12,26 @@ class Db
 
     protected function getConfig()
     {
-        return $config = Config::instance()->data;
+        $config = Config::instance()->data;
+        return $config;
     }
 
     protected function __construct()
     {
         $config = $this->getConfig();
+
+        if(empty($config['db']) || !is_array($config))
+        {
+            throw new \PDOException('Нет данных для соединения с базой');
+        }
+
         $this->dbh = new \PDO('mysql:host=' .
             $config['db']['host'] . ';dbname=' . $config['db']['dbname'],
             $config['db']['user'], $config['db']['password']);
+
+        if (!$this->dbh) {
+            throw new \PDOException('Не удается соединиться с базой данных!');
+        }
     }
 
     public function lastInsertId()

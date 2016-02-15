@@ -2,17 +2,19 @@
 
 require_once __DIR__ . '/autoload.php';
 
+try {
+    $app = new \App\Application();
+    $app->run();
+} catch (Exception $e) {
+    if ($e instanceof PDOException) {
 
-$route = new \App\Route();
-
-if($route->folder == 'admin') {
-    $controller = new \App\Controllers\Admin\News();
-    $controller->action($route->action);
-
+    }
 }
 
-else {
-    $controller = new \App\Controllers\Index\News();
-    $controller->action($route->action);
-}
+
+
+
+
+
+
 

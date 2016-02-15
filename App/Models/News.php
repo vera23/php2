@@ -5,6 +5,7 @@ namespace App\Models;
 
 use App\Db;
 use App\Model;
+use App\MultiException;
 use App\TArrayAccess;
 use App\TIterator;
 
@@ -12,20 +13,13 @@ use App\TIterator;
  * @property \App\Models\Author $author
  * exists if the News object has not null author_id
  */
-class News extends Model /*implements \ArrayAccess, \Iterator*/
+class News extends Model
 {
-   /* use TArrayAccess;
-    use TIterator;*/
-
     public $title;
     public $published;
     public $lead;
     public $text;
     public $author_id;
-
-    public $titleAlert;
-    public $leadAlert;
-    public $textAlert;
 
     const TABLE = "news";
 
@@ -51,25 +45,29 @@ class News extends Model /*implements \ArrayAccess, \Iterator*/
     }
 
     /**
-     * functon is validating what came from the form
+     * functon is validating data that came from the form
      * @return bool
      */
     public function validate()
     {
+        $e = new \App\Exceptions\MultiException();
+
         if (empty($this->title)) {
-            $this->titleAlert = 'Напишите заголовок';
+            $e[] = new \Exception('Напишите заголовок');
         }
         if (empty($this->lead)) {
-            $this->leadAlert = 'Напишите введение';
+            $e[] = new \Exception('Напишите введение');
         }
         if (empty($this->text)) {
-            $this->textAlert = 'Напишите текст новости';
+            $e[] = new \Exception('Напишите текст новости');
         }
-        if (!empty($this->titleAlert) || !empty($this->leadAlert) || !empty($this->textAlert)) {
-            return false;
-        } else
-            return true;
+        if(!$e->isEmpty())
+        {
+            throw $e;
+        }
+        else return true;
     }
+
 
     /**
      * LAZY LOAD

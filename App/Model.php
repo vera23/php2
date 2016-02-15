@@ -2,16 +2,16 @@
 
 namespace App;
 
-    /**
-     * Class Model
-     * @package App
-     */
+/**
+ * Class Model
+ * @package App
+ */
+use App\Exceptions\DbException;
+use App\Exceptions\E404Exception;
 
 /**
  * @var \PDO
  */
-
-
 class Model
 {
     const TABLE = '';
@@ -22,6 +22,9 @@ class Model
     {
         $db = Db::instance();
         $sql = 'SELECT * FROM ' . static::TABLE;
+        if (empty($db->findAll($sql, static::class))) {
+            throw new E404Exception('В таблице ' . static::TABLE . 'нет записей');
+        }
         return $db->findAll($sql, static::class);
     }
 
@@ -30,6 +33,9 @@ class Model
         $db = Db::instance();
         $sql = 'SELECT * FROM ' . static::TABLE . ' WHERE id = :id';
         $values[':id'] = $id;
+        if (!$db->find($sql, static::class, $values)) {
+            throw new E404Exception('В таблице нет записи, с id = ' . $id);
+        }
         return $db->find($sql, static::class, $values);
     }
 
@@ -64,6 +70,9 @@ class Model
 
         $db = Db::instance();
         $res = $db->execute($sql, $values);
+        if (!$res) {
+            throw new E404Exception('Запись в таблицу "' . static::TABLE . '" добавлена не была');
+        }
         $this->id = $db->lastInsertId();
         return $res;
     }
@@ -90,7 +99,27 @@ class Model
         $sql = 'UPDATE ' . static::TABLE . ' SET ' . implode(',', $columns) . ' WHERE id=:id';
         $values[':id'] = $this->id;
         $db = Db::instance();
-        return $db->execute($sql, $values);
+        $res = $db->execute($sql, $values);
+        if (!$res) {
+            throw new E404Exception('Запись в талблице "' . static::TABLE . '" обновлена не была');
+        }
+        return $res;
+    }
+
+
+    public function validate()
+    {
+        return true;
+    }
+
+    public function fill(array $data = [])
+    {
+        foreach ($data as $key => $value) {
+            if (property_exists(static::class, $key)) {
+                $this->$key = $value;
+            }
+        }
+        return $this;
     }
 
     public function beforeSave()
@@ -101,6 +130,7 @@ class Model
     public function save()
     {
         $this->beforeSave();
+        $this->validate();
         return $this->isNew() ? $this->insert() : $this->update();
     }
 
@@ -112,7 +142,11 @@ class Model
         $sql = 'DELETE FROM ' . static::TABLE . ' WHERE id=:id';
         $values[':id'] = $this->id;
         $db = Db::instance();
-        return $db->execute($sql, $values);
+        $res = $db->execute($sql, $values);
+        if (!$res) {
+            throw new E404Exception('Запись в талблицы ' . static::TABLE . '" удалена не была');
+        }
+        return $res;
     }
 }
 

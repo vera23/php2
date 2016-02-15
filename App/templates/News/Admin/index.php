@@ -43,7 +43,7 @@
                         <a href="/admin/news/edit?id=<?php echo $article->id; ?>" role="button" class="btn btn-warning">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </a>
-                        <a href="delete.php?id=<?php echo $article->id; ?>&delete=true" role="button"
+                        <a href="/admin/news/delete?id=<?php echo $article->id; ?>" role="button"
                            class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </a>
