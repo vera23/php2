@@ -16,7 +16,7 @@
         <br>
         <div class="alert col-sm-12 alert-danger" role="alert">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <?php echo $error->getMessage(); ?>
+            <?php echo $e->getMessage(); ?>
         </div>
 
     </section>

@@ -39,7 +39,7 @@ class Admin extends Controller
                 if ($article->save()) {
                     header('Location: /admin/news');
                 }
-            } catch (\App\Exceptions\MultiException $e) {
+            } catch (MultiException $e) {
                 $this->view->article = $article;
                 $this->view->authors = Author::findAll();
                 $this->view->errors = $e;

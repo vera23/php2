@@ -29,19 +29,9 @@ class Application
 
     protected function getController()
     {
-        $view = new \App\View();
         $this->controller = new $this->class;
-        try {
-            $this->controller->action($this->action);
-        } catch (\Exception $e) {
-            $view->error = $e;
-            if ($e instanceof \PDOException) {
-                $view->display('\App\templates\error.php');
-            }
-            if ($e instanceof E404Exception) {
-                $view->display('\App\templates\e404.php');
-            }
-        }
+        $this->controller->action($this->action);
+
         $this->controller->redirect();
     }
 
@@ -62,10 +52,10 @@ class Application
     {
         if (in_array('admin', $urlArray)) {
             $className = 'Admin';
-            $this->folder =  mb_convert_case($urlArray[1], MB_CASE_TITLE, "UTF-8") ?: 'News';
+            $this->folder = mb_convert_case($urlArray[1], MB_CASE_TITLE, "UTF-8") ?: 'News';
         } else {
-            $className =  'Index';
-            $this->folder =  mb_convert_case($urlArray[0], MB_CASE_TITLE, "UTF-8") ?: 'News';
+            $className = 'Index';
+            $this->folder = mb_convert_case($urlArray[0], MB_CASE_TITLE, "UTF-8") ?: 'News';
         }
 
         $this->class = '\\App\\Controllers\\' . $this->folder . '\\' . $className;
