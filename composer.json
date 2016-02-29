@@ -2,7 +2,7 @@
   "repositories": [
     {
       "type": "git",
-      "url": "https://github.com/vera23/multiexception"
+      "url": "https://github.com/vera23/multi"
     }
   ],
   "minimum-stability": "dev",
