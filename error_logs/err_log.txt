@@ -17,3 +17,5 @@
 16-02-24 22:10:00: Ошибка класса App\Exceptions\E404Exception В таблице нет записи, с id = 1
 16-02-24 22:20:19: Ошибка класса App\Exceptions\E404Exception В таблице нет записи, с id = 2
 16-02-24 22:30:38: Ошибка класса PDOException SQLSTATE[HY000] [1049] Unknown database 'phpdd2'
+16-03-01 0:43:07: Ошибка класса App\Exceptions\E404Exception( error )Не найдено!in file: C:\OpenServer\domains\php2.local\App\Controllers\News\Index.phpon line 27
+16-03-01 0:44:08: Ошибка класса App\Exceptions\E404Exception( error )Не найдено!в файле: C:\OpenServer\domains\php2.local\App\Controllers\News\Index.php on line 27

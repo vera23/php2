@@ -11,14 +11,14 @@ try {
     $app = new \App\Application();
     $app->run();
 } catch (Exception $e) {
-
-    Logger::log($e);
-
+    $logger = new Logger();
     if ($e instanceof PDOException) {
+        $logger->critical('Критичная ошибка', ['exception' =>$e]);
         $view->e = $e;
         $view->display(__DIR__ . '\App\templates\error.php');
     }
     if ($e instanceof E404Exception) {
+        $logger->error('Не найдено!', ['exception' =>$e]);
         $view->e = $e;
         $view->display(__DIR__ . '\App\templates\e404.php');
     }

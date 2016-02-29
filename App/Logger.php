@@ -15,16 +15,9 @@ class Logger implements LoggerInterface
         if (isset($e) && $e instanceof \Exception) {
             $fp = fopen('error_logs/err_log.txt', 'a');
             fwrite($fp,
-                date('y-m-d G:i:s') . ': Ошибка класса ' . get_class($e) . '( ' . $level . ' )' . $message .
-                'in file: ' . $e->getFile() . 'on line ' . $e->getLine() . "\n");
+                date('y-m-d G:i:s') . ': Ошибка класса ' . get_class($e) . '(' . $level . ')' . $message .
+                'в файле: ' . $e->getFile() . ' on line ' . $e->getLine() . "\n");
             fclose($fp);
         }
     }
-
-    /* public static function write(\Exception $e)
-     {
-         $fp = fopen('error_logs/err_log.txt', 'a');
-         fwrite($fp, date('y-m-d G:i:s') . ': Ошибка класса ' . get_class($e) . ' ' . $e->getMessage() . "\n");
-         fclose($fp);
-     }*/
 }
