@@ -5,8 +5,10 @@
       "url": "https://github.com/vera23/multiexception"
     }
   ],
+  "minimum-stability": "dev",
+  "prefer-stable" : true,
   "require": {
     "psr/log": "1.0.0",
-    "vera23/multi": "^1.0"
+    "vera23/multi": "*"
   }
 }
