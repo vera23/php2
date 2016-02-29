@@ -1,5 +1,12 @@
 {
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/vera23/multiexception"
+    }
+  ],
   "require": {
-    "psr/log" : "1.0.0"
+    "psr/log": "1.0.0",
+    "vera23/multi": "^1.0"
   }
 }

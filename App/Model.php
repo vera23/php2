@@ -6,12 +6,6 @@ namespace App;
  * Class Model
  * @package App
  */
-use App\Exceptions\DbException;
-use App\Exceptions\E404Exception;
-
-/**
- * @var \PDO
- */
 class Model
 {
     const TABLE = '';
@@ -51,10 +45,6 @@ class Model
             if ('id' == $k) {
                 continue;
             }
-            //Сделаю Exception - удалю этот if
-            if (preg_match('~Alert~', $k)) {
-                continue;
-            }
             $columns[] = $k;
             $values[':' . $k] = $v;
         }
@@ -64,9 +54,6 @@ class Model
 
         $db = Db::instance();
         $res = $db->execute($sql, $values);
-        if (!$res) {
-            throw new E404Exception('Запись в таблицу "' . static::TABLE . '" добавлена не была');
-        }
         $this->id = $db->lastInsertId();
         return $res;
     }
@@ -82,10 +69,6 @@ class Model
             if ('id' == $k) {
                 continue;
             }
-            //Сделаю Exception - удалю этот if
-            if (preg_match('~Alert~', $k)) {
-                continue;
-            }
             $columns[] = $k . '=:' . $k;
             $values[':' . $k] = $v;
         }
@@ -94,9 +77,6 @@ class Model
         $values[':id'] = $this->id;
         $db = Db::instance();
         $res = $db->execute($sql, $values);
-        if (!$res) {
-            throw new E404Exception('Запись в талблице "' . static::TABLE . '" обновлена не была');
-        }
         return $res;
     }
 
@@ -137,10 +117,6 @@ class Model
         $values[':id'] = $this->id;
         $db = Db::instance();
         $res = $db->execute($sql, $values);
-        if (!$res) {
-            throw new E404Exception('Запись в талблицы ' . static::TABLE . '" удалена не была');
-        }
         return $res;
     }
 }
-

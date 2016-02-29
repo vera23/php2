@@ -4,8 +4,10 @@ namespace App\Controllers\News;
 
 
 use App\Controller;
+use App\Exceptions\E404Exception;
 use App\Models\Author;
 use App\Exceptions\MultiException;
+use \App\Models\News;
 
 class Admin extends Controller
 {
@@ -18,9 +20,12 @@ class Admin extends Controller
     {
         if (null != $_GET['id'] && $_GET['id'] != 'new') {
             $id = (int)$_GET['id'];
-            $this->view->article = \App\Models\News::findById($id);
+            $this->view->article = News::findById($id);
+            if(!$this->view->article) {
+                throw new E404Exception('В таблице нет записи, с id = ' . $id);
+            }
         } else {
-            $this->view->article = $article = new \App\Models\News();
+            $this->view->article = $article = new News();
         }
         $this->view->authors = Author::findAll();
     }
@@ -28,9 +33,9 @@ class Admin extends Controller
     public function actionSave()
     {
         if (!empty($_POST['id']) or $_POST['id'] == 'new') {
-            $article = \App\Models\News::findById($_POST['id']);
+            $article = News::findById($_POST['id']);
         } else {
-            $article = new \App\Models\News();
+            $article = new News();
         }
 
         if ($this->isPost()) {
@@ -50,8 +55,11 @@ class Admin extends Controller
 
     public function actionDelete()
     {
-        $article = \App\Models\News::findById($_GET['id']);
+        $article = News::findById($_GET['id']);
         $article->delete();
+        if(!$article->delete) {
+            throw new E404Exception('Запись в талблицы ' . static::TABLE . '" удалена не была');
+        }
         header('Location: /admin/news');
     }
 }
