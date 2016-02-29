@@ -12,7 +12,7 @@
 <body>
 <div class="container">
     <section>
-        <h1>Ошибки в базе данных</h1>
+        <h1>Ошибка 404</h1>
         <div class="alert col-sm-12 alert-danger" role="alert">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <?php echo $e->getMessage(); ?>

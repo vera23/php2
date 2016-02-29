@@ -22,9 +22,6 @@ class Model
     {
         $db = Db::instance();
         $sql = 'SELECT * FROM ' . static::TABLE;
-        if (empty($db->findAll($sql, static::class))) {
-            throw new E404Exception('В таблице ' . static::TABLE . 'нет записей');
-        }
         return $db->findAll($sql, static::class);
     }
 
@@ -33,9 +30,6 @@ class Model
         $db = Db::instance();
         $sql = 'SELECT * FROM ' . static::TABLE . ' WHERE id = :id';
         $values[':id'] = $id;
-        if (!$db->find($sql, static::class, $values)) {
-            throw new E404Exception('В таблице нет записи, с id = ' . $id);
-        }
         return $db->find($sql, static::class, $values);
     }
 
