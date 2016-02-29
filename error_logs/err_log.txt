@@ -15,3 +15,5 @@
 16-02-24 22:09:02: Ошибка класса App\Exceptions\E404Exception В таблице нет записи, с id = 1
 16-02-24 22:09:46: Ошибка класса App\Exceptions\E404Exception В таблице нет записи, с id = 1
 16-02-24 22:10:00: Ошибка класса App\Exceptions\E404Exception В таблице нет записи, с id = 1
+16-02-24 22:20:19: Ошибка класса App\Exceptions\E404Exception В таблице нет записи, с id = 2
+16-02-24 22:30:38: Ошибка класса PDOException SQLSTATE[HY000] [1049] Unknown database 'phpdd2'
