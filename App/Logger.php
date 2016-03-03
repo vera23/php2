@@ -12,11 +12,15 @@ class Logger implements LoggerInterface
     public function log($level, $message, array $context = array())
     {
         $e = $context['exception'];
+        $fp = fopen('error_logs/err_log.txt', 'a');
         if (isset($e) && $e instanceof \Exception) {
-            $fp = fopen('error_logs/err_log.txt', 'a');
             fwrite($fp,
                 date('y-m-d G:i:s') . ': Ошибка класса ' . get_class($e) . '(' . $level . ')' . $message .
                 'в файле: ' . $e->getFile() . ' on line ' . $e->getLine() . "\n");
+            fclose($fp);
+        }
+        else {
+            fwrite($fp,  date('y-m-d G:i:s')  . 'Ошибка:' .  $level . ', ' . $message);
             fclose($fp);
         }
     }
